@@ -1,0 +1,97 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &4736291176484379978
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 92247141, guid: e58dc1db9a3dbd642865daea565aab9f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.31559074
+      objectReference: {fileID: 0}
+    - target: {fileID: 92247141, guid: e58dc1db9a3dbd642865daea565aab9f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.9488954
+      objectReference: {fileID: 0}
+    - target: {fileID: 92247141, guid: e58dc1db9a3dbd642865daea565aab9f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 143.207
+      objectReference: {fileID: 0}
+    - target: {fileID: 366068391, guid: e58dc1db9a3dbd642865daea565aab9f, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2034684355, guid: e58dc1db9a3dbd642865daea565aab9f, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1785783034247945569, guid: e58dc1db9a3dbd642865daea565aab9f, type: 3}
+      propertyPath: m_Name
+      value: Base_square
+      objectReference: {fileID: 0}
+    - target: {fileID: 1785783034247945597, guid: e58dc1db9a3dbd642865daea565aab9f, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1785783034247945597, guid: e58dc1db9a3dbd642865daea565aab9f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 175
+      objectReference: {fileID: 0}
+    - target: {fileID: 1785783034247945597, guid: e58dc1db9a3dbd642865daea565aab9f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 1785783034247945597, guid: e58dc1db9a3dbd642865daea565aab9f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 135
+      objectReference: {fileID: 0}
+    - target: {fileID: 1785783034247945597, guid: e58dc1db9a3dbd642865daea565aab9f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1785783034247945597, guid: e58dc1db9a3dbd642865daea565aab9f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1785783034247945597, guid: e58dc1db9a3dbd642865daea565aab9f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1785783034247945597, guid: e58dc1db9a3dbd642865daea565aab9f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1785783034247945597, guid: e58dc1db9a3dbd642865daea565aab9f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1785783034247945597, guid: e58dc1db9a3dbd642865daea565aab9f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1785783034247945597, guid: e58dc1db9a3dbd642865daea565aab9f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e58dc1db9a3dbd642865daea565aab9f, type: 3}
+--- !u!1 &4736291176403208494 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 92247140, guid: e58dc1db9a3dbd642865daea565aab9f, type: 3}
+  m_PrefabInstance: {fileID: 4736291176484379978}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1455235671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4736291176403208494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be057db26a666f948b04d81e51aec014, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rotation: {x: 0, y: 20, z: 0}
