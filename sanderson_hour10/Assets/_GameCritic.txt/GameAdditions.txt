@@ -1,0 +1,7 @@
+1. Added button to allow players to restart game.
+
+2. Added water footsep audio.
+
+3. Added a timer
+
+4. Changed the bumber

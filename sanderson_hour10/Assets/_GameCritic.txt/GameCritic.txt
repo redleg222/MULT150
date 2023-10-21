@@ -1,0 +1,21 @@
+1. Is the game too easy or hard?
+
+This question is rather subjective. Is it too easy of a game for me, yes. Would it be a hard game for others perhaps. As a designers and developer it's asking the question if you're creating something for your personal enjoyment or for the needs of others. So in the end I'd argue that it doesn't really matter if the game is too easy or too hard, the answer is was it the game that I was asked (and hopefully being compensated) to create.
+
+2. What would make it easier or harder?
+
+Making the game easier or harder can always come down to size and speed. Make the balls move slower, increase the speed of the character, reduce the size of the field, increase the size of the bumpers. Make the goal areas larger or have them also become moving targets. Once the base game is built you can always add more options and C# code to add features to add complexity to the game. Taking the time to construct your scripts properly with variables and arguments will give you and your players more variability in their experience and, hopefully, more playability in the game.
+
+3. What would give it a "wow" factor?
+
+More of a wow factor could be...
+
+	* Introduce wormholes that randomly pop up around the field and teleport/portal the balls to different paths
+	* Add a raycaster to the character allowing them to shoot out and beam and knock a ball offf it's path if they can't get to it in time with the bumper
+	* Include some random elements that move around the field or come up from the floor to knock balls off course
+	* Set up Hot and Cold zones around the field (visible or invisible/mobile or static) that as balls pass through them it further increases or decreases their speed
+	* Have the size of the field increase in size as each goal is recorded
+
+4. What parts of the game are fun? What parts of the game are tedious?
+
+In truth it's not my type of game. If anything it's more of a party game where everyone can play it, it doesn't take a great amount of skill, it's over quickly and it can be enjoyed by all ages. In that sense it's not going to be the game someone plays for hours on end, but it's the game that helps make family gatherings less tedious and good for some trash talking amongst friends. The tedious part of the game is 80% of the goals had nothing to do with anything I did, it was just random luck that the ball bounced into the goal. So there wasn't much for me to have to do other than sit and wait, watch for when the randomness ended and I had to go in with my character and reintroduce randomness in order to finish the game.
