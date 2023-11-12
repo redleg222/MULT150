@@ -1,0 +1,30 @@
+1. Is the game to easy or hard? Give 3 unique reasons why it is easy or hard.
+
+The premise and rules of the game are easy to understand, however I'd argue that the mechanics make it a 'hard' game for a few reasons.
+	a. The fact that the speed of the game is constant and immediate doesn't give the player a chance to get into the flow of the game and it also doesn't give the player any opportunity to take a split second pause or break
+	b. The ability to phase the character is a useful feature when about to strike an obsticle, but it feels as if the character needs some ability to lunge faster left and right to avoid/catch objects to make things easier
+	c. I personaly found that the completely random nature of spawning to be hard at times coupled with the fact that when phased you'd pass though obstcles, but you wouldn't trigger power ups. So when obstcles and powerups would spawn in a row it was near impossible not to fail. 
+
+2. What 3 changes would you do to make it easier or harder?
+
+	a. Fine tune the scripting so that the obsticles and powerups use different logic and patterns. That way you can more easily change the density, speed and 'flow' giving the player an opportunity to feel there is less random chance behind the game.
+	b. Add player controls to 'double-tap' left or right to dodge or lunge a little faster to help the character reach from one end of the play area to another. The alternative would be to limit the random range of the spawn from -3 to 3 to a more narrow range not to exceed # based on where the last item spawned.
+	c. Finally, I would add code so that a obstcle and powerup can't immediately spwan one right infront of another. Erither destroy the object, have the code shift it to the left or the right by 1 or have the object change to match the same object that proceeded it. 
+
+3. List three things that would give it a "wow" factor.
+	
+	a. If you created a longer perspective and added a mini-map so that the player not only had to deal with the immediate obsticles but also had to take into consideration what would be coming up in just a short period of time.
+	b. Adding a few "nuke bombs" in the event the player is getting overwhelmed then can hit a panic button and it clears the board of all obsticles (or better yet for # amount of time all obsticles are turned into powerups).
+	c. Borrowing from Chaos Ball it would be great if occasinally there would be special blue powerup that when captured would release a blue ball that would launch and begin bouncing off the walls. It would destroy obsticles it struck and collect powerups it came in contact with until it eventually bounced out of the play area. 
+
+4. What parts of the game are fun? 3 items
+
+	a. The game does have a simplicity to it that makes it easy to pick up and play without a lot of investment. That also makes it a great PvP game for all ageas.
+	b. One aspect that makes the game fun for me is how easy it would be to scale it up or add on to it. It has a lot of flexability to modify it and customize it.
+	c. One of the things that I do find fun about the game is that while the graphics and gameplay are very much modern style, the simple nature of the game is very much in the retro style of Pitfall and other old school Atari and arcade games that were trying to do as much as they could with what they had.
+
+5. What parts of the game are tedious? 3 items
+
+	a. The background and material would need to change. As a class lesson I think it's fine, but for a serious game the character can't look like it's always running in place with nothing changing.
+	b. There needs to also be an element of risk or challange to the game, not just seeing if you can beat your last best run time. Without something akin to a boss-fight the game just starts to become more of a chore and less of a sense of accomplishment.
+	c. Finally, what I think is tedious is the fact that the speed of the game is fixed and constant. What would give the game a sense of excitement is if the character's speed wasn't under the controll of the player and so they simply had to react. It would give more of a feeling of being on a roller coaster in the dark which I think would combat the tedium.
