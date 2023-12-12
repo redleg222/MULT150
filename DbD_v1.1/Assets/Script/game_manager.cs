@@ -19,7 +19,15 @@ public class game_manager : MonoBehaviour
 
     public void lowerHousecount()
     {
-        houseCountdown -=1;
+        if (houseCountdown > 0)
+        {
+            houseCountdown -= 1;
+        }
+    }
+
+    public void winZone()
+    {
+        Debug.Log("Chicken Dinner");
     }
 
     public void takeDamage(float perFrame = 0, float flatDamage = 0)
@@ -97,26 +105,28 @@ public class game_manager : MonoBehaviour
             fuel -= 0.001f;
         }
         
-        float offset = Time.time * speed / -6;
-        rend.material.mainTextureOffset = new Vector2(0, offset);
-        houses = GameObject.FindGameObjectsWithTag("house");
-        powerups = GameObject.FindGameObjectsWithTag("powerup");
-        obstacles = GameObject.FindGameObjectsWithTag("obstacle");
-
-        foreach (GameObject house in houses)
+        if (houseCountdown != 0)
         {
-            house.transform.position += Vector3.forward * speed * -2 * Time.deltaTime;
-        }
+            float offset = Time.time * speed / -6;
+            rend.material.mainTextureOffset = new Vector2(0, offset);
+            houses = GameObject.FindGameObjectsWithTag("house");
+            powerups = GameObject.FindGameObjectsWithTag("powerup");
+            obstacles = GameObject.FindGameObjectsWithTag("obstacle");
 
-        foreach (GameObject powerup in powerups)
-        {
-            powerup.transform.position += Vector3.forward * speed * -2 * Time.deltaTime;
-        }
+            foreach (GameObject house in houses)
+            {
+                house.transform.position += Vector3.forward * speed * -2 * Time.deltaTime;
+            }
 
-        foreach (GameObject obstacle in obstacles)
-        {
-            obstacle.transform.position += Vector3.forward * speed * -2 * Time.deltaTime;
-        }
+            foreach (GameObject powerup in powerups)
+            {
+                powerup.transform.position += Vector3.forward * speed * -2 * Time.deltaTime;
+            }
 
+            foreach (GameObject obstacle in obstacles)
+            {
+                obstacle.transform.position += Vector3.forward * speed * -2 * Time.deltaTime;
+            }
+        }
     }
 }

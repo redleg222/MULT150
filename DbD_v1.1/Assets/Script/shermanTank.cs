@@ -10,6 +10,7 @@ public class shermanTank : MonoBehaviour
     [SerializeField] private GameObject Lwheel, Rwheel;
     [SerializeField] public bool canMove = true, halfSpeed = false;
     [SerializeField] private GameObject gameManager;
+    [SerializeField] public AudioSources idle, move, shoot;
 
     private float rotationInput, forwardInput;
     public float offset;
@@ -26,7 +27,6 @@ public class shermanTank : MonoBehaviour
         {
             canMove = false;
             gameManager.GetComponent<game_manager>().takeDamage(0.0f,5.0f);
-
         }
         else if (i == 2)
         {
@@ -63,10 +63,19 @@ public class shermanTank : MonoBehaviour
  
 
         Vector3 newPosition = transform.position + (transform.forward * forwardInput * maxSpeed * Time.deltaTime);
-        if (newPosition.z >= 4.0f)
+
+        if (gameManager.GetComponent<game_manager>().houseCount() == 0)
         {
-            newPosition.z = 4.0f;
+        
         }
+        else
+        { 
+            if (newPosition.z >= 4.0f)
+            {
+                newPosition.z = 4.0f;
+            }
+        }
+
         rb.MovePosition(newPosition);
 
         Quaternion newRotation = transform.rotation * Quaternion.Euler(Vector3.up * (rotationInput * rotationSpeed * Time.deltaTime));

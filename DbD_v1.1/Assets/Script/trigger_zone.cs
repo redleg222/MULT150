@@ -54,36 +54,35 @@ public class trigger_zone : MonoBehaviour
                 if (spawnedObstacles)
                 {   
                     spawnedObstacles = !spawnedObstacles;
-                    if (gameManager.GetComponent<game_manager>().houseCount() <= powerUp)
-                    {
-
-                        powerUp = powerUp - Random.Range(7, 15);
-                        int i = Random.Range(0, 3);
-                        if (i == 0)
-                        {
-                            temp = Instantiate(powerupFuel) as GameObject;
-                            temp.GetComponent<trigger_powerup>().gameManager = gameManager;
-                            Vector3 position = temp.transform.position;
-                            position.x = Random.Range(-1, 2) * 6;
-                            temp.transform.position = position;
-                        }
-                        else if (i == 1)
-                        {
-                            temp = Instantiate(powerupHealth) as GameObject;
-                            temp.GetComponent<trigger_powerup>().gameManager = gameManager;
-                            Vector3 position = temp.transform.position;
-                            position.x = Random.Range(-1, 2) * 6;
-                            temp.transform.position = position;
-                        }
-                        else if (i == 2)
-                        {
-                            temp = Instantiate(powerupAmmo) as GameObject;
-                            temp.GetComponent<trigger_powerup>().gameManager = gameManager;
-                            Vector3 position = temp.transform.position;
-                            position.x = Random.Range(-1, 2) * 6;
-                            temp.transform.position = position;
-                        }
-                    }
+                    //if (gameManager.GetComponent<game_manager>().houseCount() <= powerUp)
+                    //{
+                    //    powerUp = powerUp - Random.Range(7, 15);
+                    //    int i = Random.Range(0, 3);
+                    //    if (i == 0)
+                    //    {
+                    //        temp = Instantiate(powerupFuel) as GameObject;
+                    //        temp.GetComponent<trigger_powerup>().gameManager = gameManager;
+                    //        Vector3 position = temp.transform.position;
+                    //        position.x = Random.Range(-1, 2) * 6;
+                    //        temp.transform.position = position;
+                    //    }
+                    //    else if (i == 1)
+                    //    {
+                    //        temp = Instantiate(powerupHealth) as GameObject;
+                    //        temp.GetComponent<trigger_powerup>().gameManager = gameManager;
+                    //        Vector3 position = temp.transform.position;
+                    //        position.x = Random.Range(-1, 2) * 6;
+                    //        temp.transform.position = position;
+                    //    }
+                    //    else if (i == 2)
+                    //    {
+                    //        temp = Instantiate(powerupAmmo) as GameObject;
+                    //        temp.GetComponent<trigger_powerup>().gameManager = gameManager;
+                    //        Vector3 position = temp.transform.position;
+                    //        position.x = Random.Range(-1, 2) * 6;
+                    //        temp.transform.position = position;
+                    //    }
+                    //}
                 }
                 else
                 {
