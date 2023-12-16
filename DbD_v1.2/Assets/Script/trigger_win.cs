@@ -10,7 +10,7 @@ public class trigger_win : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            gameManager.GetComponent<game_manager>().winZone();
+            gameManager.GetComponent<game_manager>().finish();
         }
     }
 }

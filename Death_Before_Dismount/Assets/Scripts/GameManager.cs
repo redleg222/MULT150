@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     private Renderer rend;
     private Renderer rendL;
     private Renderer rendR;
-    public ProgressBar pbFuel, pbHealth, pbAmmo;
+    public UnityEngine.UIElements.ProgressBar pbFuel, pbHealth, pbAmmo;
     private GameObject[] houses;
     private GameObject[] powerups;
     private GameObject[] obstacles;
