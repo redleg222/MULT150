@@ -4,13 +4,26 @@ using UnityEngine;
 
 public class trigger_win : MonoBehaviour
 {
-    [SerializeField] private GameObject gameManager;
+    [Header("Canvas")]
+    public Canvas UI;
+
+    [Header("Game Manager")]
+    public GameObject GameManager;
+
+    [Header("Assets")]
+    public GameObject tank;
+
+    [Header("Sound Effects")]
+    public AudioSource winMusic;
 
     void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
         {
-            gameManager.GetComponent<game_manager>().finish();
+            UI.GetComponent<trigger_canvas>().gameWon.SetActive(true);
+            UI.GetComponent<trigger_canvas>().buttonReplay.SetActive(true);
+            tank.GetComponent<playerTank>().maxSpeed = 0f;
+            winMusic.Play();
         }
     }
 }

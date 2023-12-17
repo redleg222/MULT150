@@ -1101,7 +1101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03eee782a88ad3b4699bb855f58c3662, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameManager: {fileID: 0}
+  GameManager: {fileID: 0}
   maxSpeed: 2
   currentSpeed: 0
   highGear: 0
@@ -1111,6 +1111,7 @@ MonoBehaviour:
   turretLagSpeed: 0.5
   idle: {fileID: 1069891501}
   move: {fileID: 1069891500}
+  tankOperational: 1
   damageLeft: {fileID: 5670504665126735562}
   damageRight: {fileID: 5113348746337400682}
   destroyedTank: {fileID: 7499111255926810969}
@@ -3141,7 +3142,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 8fd015f45a4199b46b12ba97a1f574c4, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.2603718
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 8fd015f45a4199b46b12ba97a1f574c4, type: 3}
       propertyPath: m_LocalRotation.w

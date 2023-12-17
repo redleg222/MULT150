@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class enemy_handler : MonoBehaviour
 {
-    [SerializeField] public GameObject gameManager, tank;
+    [SerializeField] public GameObject GameManager, tank;
     [SerializeField] public bool isDead = false;
     [SerializeField] public bool fromLeft = true;
     [SerializeField] public GameObject parent;
@@ -68,7 +68,7 @@ public class enemy_handler : MonoBehaviour
 
     public void fireRocket()
     {
-        if (!gameManager.GetComponent<game_manager>().SmokeCover)
+        if (!GameManager.GetComponent<GameManager>().smokeCover)
         {
             backBlast.SetActive(true);
             if (Random.Range(0, 3) == 0)
@@ -86,7 +86,6 @@ public class enemy_handler : MonoBehaviour
             }
             else
             {
-                Debug.Log("Rocket_Miss");
                 rocket_miss.Play();
             }
         }
@@ -100,7 +99,7 @@ public class enemy_handler : MonoBehaviour
         }
 
         tank.GetComponent<playerTank>().damageLeft.SetActive(true);
-        gameManager.GetComponent<game_manager>().takeDamage(0.0f, 20.0f);
+        GameManager.GetComponent<GameManager>().takeDamage(0.0f, 20.0f);
     }
 
     private void damageRight()
@@ -110,7 +109,7 @@ public class enemy_handler : MonoBehaviour
             tank.GetComponent<playerTank>().damageRight.SetActive(false);
         }
         tank.GetComponent<playerTank>().damageRight.SetActive(true);
-        gameManager.GetComponent<game_manager>().takeDamage(0.0f, 20.0f);
+        GameManager.GetComponent<GameManager>().takeDamage(0.0f, 20.0f);
     }
 
     public void fadeAway()

@@ -76,9 +76,6 @@ public class inputsPlayer : MonoBehaviour
             recticleNormal = hit.normal;
         }
 
-
-
-
         forwardInput = Input.GetAxis("Vertical");
         rotationInput = Input.GetAxis("Horizontal");
 
@@ -97,8 +94,6 @@ public class inputsPlayer : MonoBehaviour
             turnL = rotationInput * -1;
             turnR = rotationInput;
         }
-
-
     }
     #endregion
 }

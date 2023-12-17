@@ -4,14 +4,18 @@ using UnityEngine;
 
 public class trigger_obstacles : MonoBehaviour
 {
-    [SerializeField] public GameObject gameManager, parent;
+    [SerializeField] public GameObject GameManager, parent;
     public int obstacleType;
 
     void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
         {
-            gameManager.GetComponent<game_manager>().hitObstacle(obstacleType);
+            GameManager.GetComponent<GameManager>().hitObstacle(obstacleType);
+        }
+        else if (other.tag == "enemy")
+        {
+            //Debug.Log("thought so");
         }
         else if (other.tag != "obstacle")
         {
@@ -23,7 +27,7 @@ public class trigger_obstacles : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            gameManager.GetComponent<game_manager>().hitObstacle(obstacleType);
+            GameManager.GetComponent<GameManager>().hitObstacle(obstacleType);
         }
     }
 

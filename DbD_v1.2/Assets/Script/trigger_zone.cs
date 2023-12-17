@@ -5,13 +5,17 @@ using UnityEngine;
 public class trigger_zone : MonoBehaviour
 {
     [Header("Game Manager")]
-    public GameObject gameManager;
+    public GameObject GameManager;
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.transform.parent.gameObject.name == "smokeScreen(Clone)")
+        if (other.tag == "enemy")
         {
-            gameManager.GetComponent<game_manager>().SmokeCover = false;
+            Destroy(other.transform.gameObject);
+        }
+        else if (other.transform.parent.gameObject.name == "smokeScreen(Clone)")
+        {
+            GameManager.GetComponent<GameManager>().smokeCover = false;
         }
             Destroy(other.transform.parent.gameObject);
     }

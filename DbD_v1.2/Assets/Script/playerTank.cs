@@ -6,20 +6,12 @@ public class playerTank : MonoBehaviour
 {
     #region Variables
     [Header("Game Manager")]
-    public GameObject gameManager;
+    public GameObject GameManager;
 
     [Header("Movement Properties")]
     public float maxSpeed = 2f;
     public float currentSpeed;
-    public float CurrentSpeed
-    {
-        get { return currentSpeed; }
-    }
     public bool highGear = false;
-    public bool HighGear
-    {
-        get { return highGear; }
-    }
     public bool halfSpeed = false;
     public float tankRotationSpeed = 20f;
 
@@ -32,6 +24,7 @@ public class playerTank : MonoBehaviour
     public AudioSource move;
 
     [Header("Damage Effects")]
+    public bool tankOperational = true;
     public GameObject damageLeft;
     public GameObject damageRight;
     public GameObject destroyedTank;
@@ -67,7 +60,12 @@ public class playerTank : MonoBehaviour
     {
         if (rb && input) 
         {
-            if (Input.GetKey(KeyCode.LeftShift))
+            if (!tankOperational)
+            {
+                maxSpeed = 0;
+            }
+
+            if (Input.GetKey(KeyCode.LeftShift) && !halfSpeed)
             {
                 highGear = true;
                 MaxSpeed = maxSpeed * 1.5f;
@@ -78,12 +76,11 @@ public class playerTank : MonoBehaviour
                 MaxSpeed = maxSpeed;
             }
 
-
             if (Input.GetKey(KeyCode.Q))
             {
-                if (gameManager.GetComponent<game_manager>().Smoke > 0)
+                if (GameManager.GetComponent<GameManager>().smoke > 0)
                 {
-                    gameManager.GetComponent<game_manager>().popSmoke();
+                    GameManager.GetComponent<GameManager>().popSmoke();
                 }
                 
             }
@@ -117,28 +114,26 @@ public class playerTank : MonoBehaviour
             currentSpeed *= 0.5f;
         }
 
-
-
         float dir = Mathf.Abs(Mathf.Round(this.transform.rotation.y * 180f));
 
         if (dir <= 69) //facing forward
         {
-            gameManager.GetComponent<game_manager>().RoadSpeed = currentSpeed;
+            GameManager.GetComponent<GameManager>().roadSpeed = currentSpeed;
         }
         else if (dir >= 166) //facing rear
         {
-            gameManager.GetComponent<game_manager>().RoadSpeed = (currentSpeed * -0.3f);
+            GameManager.GetComponent<GameManager>().roadSpeed = (currentSpeed * -0.3f);
         }
         else if (input.ForwardInput < 0)
         {
-            gameManager.GetComponent<game_manager>().RoadSpeed = -0.005f;
+            GameManager.GetComponent<GameManager>().roadSpeed = -0.005f;
         }
         else
         {
-            gameManager.GetComponent<game_manager>().RoadSpeed = 0.01f;
+            GameManager.GetComponent<GameManager>().roadSpeed = 0.01f;
         }
 
-        if (!gameManager.GetComponent<game_manager>().FinalApproach)
+        if (!GameManager.GetComponent<GameManager>().finalApproach && tankOperational)
         {
             if (input.ForwardInput >= 0)
             {
@@ -159,13 +154,13 @@ public class playerTank : MonoBehaviour
                 rb.MovePosition(wantedPosition);
             }
         }
-        else
+        else if (tankOperational)
         {
             if (input.ForwardInput >= 0)
             {
                 Vector3 wantedPosition = transform.position + (transform.forward * input.ForwardInput * currentSpeed * Time.deltaTime);
                 rb.MovePosition(wantedPosition);
-                //gameManager.GetComponent<game_manager>().GetComponent<Camera>().transform.position = gameManager.GetComponent<game_manager>().GetComponent<Camera>().transform.position + new Vector3(0, 0, Vector3.Distance(transform.position, gameManager.GetComponent<game_manager>().GetComponent<Camera>()));
+                //GameManager.GetComponent<GameManager>().GetComponent<Camera>().transform.position = GameManager.GetComponent<GameManager>().GetComponent<Camera>().transform.position + new Vector3(0, 0, Vector3.Distance(transform.position, GameManager.GetComponent<GameManager>().GetComponent<Camera>()));
             }
             else
             {
@@ -178,14 +173,16 @@ public class playerTank : MonoBehaviour
             }
         }
         
-
-        Quaternion wantedRotation = transform.rotation * Quaternion.Euler(Vector3.up * (tankRotationSpeed * input.RotationInput  * Time.deltaTime));
-        rb.MoveRotation(wantedRotation);
+        if (tankOperational)
+        {
+            Quaternion wantedRotation = transform.rotation * Quaternion.Euler(Vector3.up * (tankRotationSpeed * input.RotationInput * Time.deltaTime));
+            rb.MoveRotation(wantedRotation);
+        }
     }
 
     protected virtual void HandleTurret()
     {
-        if (turretTransform)
+        if (turretTransform && tankOperational)
         {
             Vector3 turretLookDir = input.RecticlePosition - turretTransform.position;
             turretLookDir.y = 0f;
@@ -197,25 +194,28 @@ public class playerTank : MonoBehaviour
 
     protected virtual void AnimateMovement()
     {
-        float offset;
-        if (input.ForwardInput != 0)
+        if (tankOperational)
         {
-            offset = Time.time * currentSpeed * input.ForwardInput;
-        }
-        else if (currentSpeed != 0)
-        {
-            offset = Time.time * currentSpeed * Mathf.Abs(input.RotationInput);
-        }
-        else 
-        {
-            offset = Time.time * MaxSpeed * Mathf.Abs(input.RotationInput);
-        }
+            float offset;
+            if (input.ForwardInput != 0)
+            {
+                offset = Time.time * currentSpeed * input.ForwardInput;
+            }
+            else if (currentSpeed != 0)
+            {
+                offset = Time.time * currentSpeed * Mathf.Abs(input.RotationInput);
+            }
+            else
+            {
+                offset = Time.time * MaxSpeed * Mathf.Abs(input.RotationInput);
+            }
 
-        rendL.material.SetTextureOffset("_MainTex", new Vector2((offset * input.TurnL), 0f));
-        RotateWheels(this.transform.GetChild(6).gameObject, (offset * input.TurnL));
+            rendL.material.SetTextureOffset("_MainTex", new Vector2((offset * input.TurnL), 0f));
+            RotateWheels(this.transform.GetChild(6).gameObject, (offset * input.TurnL));
 
-        rendR.material.SetTextureOffset("_MainTex", new Vector2((offset * input.TurnR), 0f));
-        RotateWheels(this.transform.GetChild(7).gameObject, (offset * input.TurnR));
+            rendR.material.SetTextureOffset("_MainTex", new Vector2((offset * input.TurnR), 0f));
+            RotateWheels(this.transform.GetChild(7).gameObject, (offset * input.TurnR));
+        }
     }
 
     protected virtual void RotateWheels(GameObject wheels, float offset)
@@ -230,7 +230,12 @@ public class playerTank : MonoBehaviour
 
     protected virtual void MovementAudio()
     {
-        if (input.ForwardInput + input.RotationInput == 0)
+        if (!tankOperational)
+        {
+            idle.mute = true;
+            move.mute = true;
+        }
+        else if (input.ForwardInput + input.RotationInput == 0)
         {
             idle.mute = false;
             move.mute = true;

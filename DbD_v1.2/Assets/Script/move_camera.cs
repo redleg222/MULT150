@@ -4,13 +4,11 @@ using UnityEngine;
 
 public class move_camera : MonoBehaviour
 {
-    [SerializeField] private GameObject gameManager, tank;
-    [SerializeField] public Animator animator;
+    [SerializeField] private GameObject GameManager, tank;
 
-    // Update is called once per frame
     void Update()
     {
-        if (gameManager.GetComponent<game_manager>().HouseCountdown == 0)
+        if (GameManager.GetComponent<GameManager>().finalApproach)
         {
             transform.position = new Vector3(0, 5, tank.transform.position.z - 12);
         }

@@ -5,50 +5,29 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     #region Variables
+    [Header("Canvas")]
+    public Canvas UI;
+
     [Header("Assets")]
     public GameObject tank;
     public GameObject road;
     public GameObject finishLine;
 
     [Header("Status")]
+    public bool gameStart = false;
     public int houseCountdown = 100;
-    public int HouseCountdown
-    {
-        get { return houseCountdown; }
-        set { houseCountdown = value; }
-    }
-
     public float roadSpeed;
-    public float RoadSpeed
-    {
-        get { return roadSpeed; }
-        set { roadSpeed = value; }
-    }
-
     public bool smokeCover = false;
-    public bool SmokeCover
-    {
-        get { return smokeCover; }
-        set { smokeCover = value; }
-    }
-
     public bool finalApproach = false;
-    public bool FinalApproach
-    {
-        get { return finalApproach; }
-        set { finalApproach = value; }
-    }
 
     [Header("Stats")]
     public float fuel = 100.0f;
     public float health = 100.0f;
     public float ammo = 100.0f;
     public int smoke = 3;
-    public int Smoke
-    {
-        get { return smoke; }
-        set { smoke = value; }
-    }
+    public GameObject smoke01;
+    public GameObject smoke02;
+    public GameObject smoke03;
 
     [Header("Obstacles")]
     public GameObject obstacleTank;
@@ -69,12 +48,16 @@ public class GameManager : MonoBehaviour
     public GameObject pbFuel;
     public GameObject pbHealth;
     public GameObject pbAmmo;
+    public GameObject pbHouses;
 
     [Header("Sound Effects")]
+    public AudioSource backgroundMusic;
     public AudioSource shootMG;
+    public AudioSource endGame;
 
     private bool spawnedObstacles = false;
     private int powerUp = 100;
+    private int startingHouses;
 
     private Renderer rend;
     private float dmgPerframe = 0;
@@ -84,6 +67,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         rend = road.GetComponent<Renderer>();
+        startingHouses = houseCountdown;
     }
 
     void Update()
@@ -109,7 +93,7 @@ public class GameManager : MonoBehaviour
                 if (spawnedObstacles)
                 {
                     spawnedObstacles = !spawnedObstacles;
-                    if (HouseCountdown <= powerUp)
+                    if (houseCountdown <= powerUp)
                     {
                         powerUp = powerUp - Random.Range(7, 15);
                         createPowerups();
@@ -135,13 +119,8 @@ public class GameManager : MonoBehaviour
                         createObstacles(pos);
                     }
                 }
-
             }
         }
-
-
-
-
     }
     #endregion
 
@@ -158,74 +137,103 @@ public class GameManager : MonoBehaviour
         pbFuel.GetComponent<ProgressBar>().UpdateValue((int)fuel);
         pbHealth.GetComponent<ProgressBar>().UpdateValue((int)health);
         pbAmmo.GetComponent<ProgressBar>().UpdateValue((int)ammo);
+        pbHouses.GetComponent<ProgressBar>().UpdateValue(startingHouses - (startingHouses - houseCountdown));
 
         if (health <= 0)
         {
-            GameOver();
+            GameOver(true);
         }
 
-        float speed = tank.GetComponent<playerTank>().CurrentSpeed;
+        float speed = tank.GetComponent<playerTank>().currentSpeed;
 
         //consume fuel
         if (speed != 0)
         {
             float rate = 600.0f;
-            if (tank.GetComponent<playerTank>().HighGear)
+            if (tank.GetComponent<playerTank>().highGear)
             {
                 rate *= .9f;
             }
             fuel -= (speed / rate);
         }
-        else
+        else if (gameStart)
         {
             fuel -= 0.001f;
         }
+
+        if (fuel <= 0)
+        {
+            fuel = 0;
+            GameOver();
+        }
     }
 
-
-
-    private void GameOver()
+    private void GameOver(bool explosion = false)
     {
-        tank.GetComponent<playerTank>().destroyedTank.SetActive(true);
+        UI.GetComponent<trigger_canvas>().gameLost.SetActive(true);
+        UI.GetComponent<trigger_canvas>().buttonReplay.SetActive(true);
+        endGame.enabled = true;
+        if (explosion)
+        {
+            tank.GetComponent<playerTank>().destroyedTank.SetActive(true);
+        }
+        tank.GetComponent<playerTank>().tankOperational = false;
     }
 
     private void FireMG()
     {
-        if (!Input.GetMouseButton(0) || ammo <= 0)
+        if (tank.GetComponent<playerTank>().tankOperational)
         {
-            shootMG.mute = true;
-            if (ammo <= 0.0f) { ammo = 0.0f; }
-        }
-        else if (Input.GetMouseButton(0)) //GetMouseButtonDown
-        {
-            shootMG.mute = false;
-            ammo -= 0.05f;
-
-            Ray rayOrigin = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(rayOrigin, out hit))
+            if (!Input.GetMouseButton(0) || ammo <= 0)
             {
-                if (hit.collider.tag == "enemy")
+                shootMG.mute = true;
+                if (ammo <= 0.0f) { ammo = 0.0f; }
+            }
+            else if (Input.GetMouseButton(0)) //GetMouseButtonDown
+            {
+                shootMG.mute = false;
+                ammo -= 0.05f;
+
+                Ray rayOrigin = Camera.main.ScreenPointToRay(Input.mousePosition);
+                if (Physics.Raycast(rayOrigin, out hit))
                 {
-                    //Debug.DrawRay(Camera.main.transform.forward, hit.point, Color.green, 10);
-                    hit.collider.GetComponent<enemy_handler>().killEnemy();
+                    if (hit.collider.tag == "enemy")
+                    {
+                        //Debug.DrawRay(Camera.main.transform.forward, hit.point, Color.green, 10);
+                        hit.collider.GetComponent<enemy_handler>().killEnemy();
+                    }
                 }
             }
-
         }
     }
 
     public void popSmoke()
     {
-        smoke -= 1;
-        smokeCover = true;
-        GameObject temp = Instantiate(smokeScreen) as GameObject;
-        Vector3 position = tank.transform.position;
-        position.z += 8;
-        temp.transform.position = position;
+        if (tank.GetComponent<playerTank>().tankOperational)
+        {
+            if (!smokeCover)
+            {
+                if (smoke == 3)
+                {
+                    smoke01.transform.GetChild(0).gameObject.SetActive(false);
+                }
+                else if (smoke == 2)
+                {
+                    smoke02.transform.GetChild(0).gameObject.SetActive(false);
+                }
+                else if (smoke == 1)
+                {
+                    smoke03.transform.GetChild(0).gameObject.SetActive(false);
+                }
+                smoke -= 1;
+                smokeCover = true;
+                GameObject temp = Instantiate(smokeScreen) as GameObject;
+                Vector3 position = tank.transform.position;
+                position.z += 8;
+                temp.transform.position = position;
+            }
+        }
     }
-
-
-
 
     public void lowerHousecount()
     {
@@ -237,15 +245,12 @@ public class GameManager : MonoBehaviour
 
     private void MoveAssets()
     {
-
         float offset = Time.time * (roadSpeed / -6);
         rend.material.mainTextureOffset = new Vector2(0, offset);
         advanceAssets("house", roadSpeed);
         advanceAssets("powerup", roadSpeed);
         advanceAssets("obstacle", roadSpeed);
         advanceAssets("enemy", roadSpeed);
-        //}
-
     }
 
     public void advanceAssets(string tag, float spd)
@@ -259,7 +264,6 @@ public class GameManager : MonoBehaviour
 
     public void createObstacles(float xOffset = 0.0f) //1 = tank_obstacle 2=wire_obstacle
     {
-
         switch (Random.Range(0, 2))
         {
             case 0:
@@ -275,7 +279,7 @@ public class GameManager : MonoBehaviour
     {
         GameObject temp, child;
         temp = Instantiate(obs) as GameObject;
-        child = temp.transform.GetChild(iChild).GetComponent<trigger_obstacles>().gameManager = this.gameObject;
+        child = temp.transform.GetChild(iChild).GetComponent<trigger_obstacles>().GameManager = this.gameObject;
         Vector3 position = temp.transform.position;
         position.x = xOffset;
         temp.transform.position = position;
@@ -331,7 +335,7 @@ public class GameManager : MonoBehaviour
     {
         GameObject temp;
         temp = Instantiate(enemy) as GameObject;
-        temp.transform.GetComponent<enemy_handler>().gameManager = this.gameObject;
+        temp.transform.GetComponent<enemy_handler>().GameManager = this.gameObject;
         temp.transform.GetComponent<enemy_handler>().tank = tank;
     }
 
@@ -353,7 +357,7 @@ public class GameManager : MonoBehaviour
 
             if (health <= 0)
             {
-                GameOver();
+                GameOver(true);
             }
         }
     }
@@ -377,7 +381,7 @@ public class GameManager : MonoBehaviour
     public void createPowerup(GameObject pu)
     {
         GameObject temp = Instantiate(pu) as GameObject;
-        temp.GetComponent<trigger_powerup>().gameManager = gameObject;
+        temp.GetComponent<trigger_powerup>().GameManager = gameObject;
         Vector3 position = temp.transform.position;
         position.x = Random.Range(-1, 2) * 6;
         temp.transform.position = position;
@@ -422,6 +426,7 @@ public class GameManager : MonoBehaviour
 
     public void prepFinish()
     {
+        pbHouses.SetActive(false);
         finalApproach = true;
 
         finishLine.SetActive(true);
@@ -437,11 +442,5 @@ public class GameManager : MonoBehaviour
         }
 
     }
-
-    public void finish()
-    {
-        Debug.Log("Chicken Dinner");
-    }
-
     #endregion
 }
